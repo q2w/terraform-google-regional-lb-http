@@ -4,7 +4,7 @@ provider "google" {
 }
 
 module "backend" {
-  source               = "../../modules/backend"
+  source               = "googlestaging/regional-lb-http/google//modules/backend"
   backend_service_name = "test-backend-service"
   region               = var.region
   instance_group       = google_compute_region_instance_group_manager.default.instance_group
@@ -12,15 +12,15 @@ module "backend" {
 }
 
 module "frontend" {
-  source              = "../../modules/frontend"
-  proxy_name          = "test-http-proxy"
-  url_map             = module.backend.backend_service_name
+  source               = "googlestaging/regional-lb-http/google//modules/frontend"
+  proxy_name           = "test-http-proxy"
+  url_map              = module.backend.backend_service_name
   forwarding_rule_name = "test-forwarding-rule"
 }
 
 resource "google_compute_instance_template" "default" {
-  name_prefix   = "test-template-"
-  machine_type  = "e2-medium"
+  name_prefix  = "test-template-"
+  machine_type = "e2-medium"
 
   disk {
     source_image = "debian-cloud/debian-11"

@@ -29,3 +29,25 @@ version intended for Terraform 0.12.x is
 
 Refer to the [contribution guidelines](./CONTRIBUTING.md) for information on
 contributing to this module.
+
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| backend\_service\_name | The name of the backend service | `string` | n/a | yes |
+| forwarding\_rule\_name | The name of the forwarding rule | `string` | n/a | yes |
+| proxy\_name | The name of the HTTP proxy | `string` | n/a | yes |
+| region | The region where the load balancer will be created | `string` | `"us-central1"` | no |
+| url\_map\_name | The name of the URL map | `string` | n/a | yes |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| backend\_service\_name | The name of the backend service |
+| forwarding\_rule\_ip | The IP address of the forwarding rule |
+| proxy\_name | The name of the HTTP proxy |
+| url\_map\_name | The name of the URL map |
+
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
