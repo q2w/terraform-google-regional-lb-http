@@ -37,9 +37,10 @@ contributing to this module.
 |------|-------------|------|---------|:--------:|
 | backend\_service\_name | The name of the backend service | `string` | n/a | yes |
 | forwarding\_rule\_name | The name of the forwarding rule | `string` | n/a | yes |
+| name | Name for the forwarding rule and prefix for supporting resources | `string` | n/a | yes |
 | proxy\_name | The name of the HTTP proxy | `string` | n/a | yes |
 | region | The region where the load balancer will be created | `string` | `"us-central1"` | no |
-| url\_map\_name | The name of the URL map | `string` | n/a | yes |
+| url\_map | The URL map to associate with the proxy | `string` | n/a | yes |
 
 ## Outputs
 

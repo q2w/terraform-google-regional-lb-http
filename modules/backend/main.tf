@@ -15,10 +15,10 @@
  */
 
 resource "google_compute_health_check" "default" {
-  name               = var.health_check_name
-  check_interval_sec = var.check_interval_sec
-  timeout_sec        = var.timeout_sec
-  healthy_threshold  = var.healthy_threshold
+  name                = var.health_check_name
+  check_interval_sec  = var.check_interval_sec
+  timeout_sec         = var.timeout_sec
+  healthy_threshold   = var.healthy_threshold
   unhealthy_threshold = var.unhealthy_threshold
 
   http_health_check {

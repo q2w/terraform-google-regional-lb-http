@@ -14,6 +14,12 @@
  * limitations under the License.
  */
 
+variable "region" {
+  description = "The region where the load balancer will be created"
+  type        = string
+  default     = "us-central1"
+}
+
 variable "proxy_name" {
   description = "The name of the HTTP proxy"
   type        = string

@@ -15,8 +15,8 @@
  */
 
 resource "google_compute_region_target_http_proxy" "default" {
-  region     = var.region
   name    = var.proxy_name
+  region  = var.region
   url_map = var.url_map
 }
 
