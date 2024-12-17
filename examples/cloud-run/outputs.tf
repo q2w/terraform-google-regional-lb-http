@@ -14,30 +14,7 @@
  * limitations under the License.
  */
 
-terraform {
-  required_version = ">= 1.3"
-  required_providers {
-
-    google = {
-      source  = "hashicorp/google"
-      version = ">= 6.0, < 7"
-    }
-    google-beta = {
-      source  = "hashicorp/google-beta"
-      version = ">= 6.0, < 7"
-    }
-    random = {
-      source  = "hashicorp/random"
-      version = ">= 2.1"
-    }
-  }
-
-  provider_meta "google" {
-    module_name = "blueprints/terraform/terraform-google-lb-http:backend/v12.0.0"
-  }
-
-  provider_meta "google-beta" {
-    module_name = "blueprints/terraform/terraform-google-lb-http:backend/v12.0.0"
-  }
-
+output "external_ip" {
+  description = "The IP address of the forwarding rule"
+  value       = module.lb-http-frontend.external_ip
 }
