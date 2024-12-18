@@ -65,7 +65,7 @@ contributing to this module.
 | protocol | The protocol this BackendService uses to communicate with backends. | `string` | `"HTTP"` | no |
 | random\_certificate\_suffix | Bool to enable/disable random certificate name generation. Set and keep this to true if you need to change the SSL cert. | `bool` | `false` | no |
 | region | The region where the load balancer backend service will be created | `string` | n/a | yes |
-| security\_policy | n/a | `string` | `null` | no |
+| security\_policy | Security policy in string. | `string` | `null` | no |
 | server\_tls\_policy | The resource URL for the server TLS policy to associate with the https proxy service | `string` | `null` | no |
 | serverless\_neg\_backends | The list of serverless backend which serves the traffic. | <pre>list(object({<br>    region          = string<br>    type            = string // cloud-run, cloud-function, and app-engine<br>    service_name    = string<br>    service_version = optional(string)<br>    capacity_scaler = optional(number, 1.0)<br>  }))</pre> | `[]` | no |
 | session\_affinity | Type of session affinity to use. Possible values are: NONE, CLIENT\_IP, CLIENT\_IP\_PORT\_PROTO, CLIENT\_IP\_PROTO, GENERATED\_COOKIE, HEADER\_FIELD, HTTP\_COOKIE, STRONG\_COOKIE\_AFFINITY. | `string` | `null` | no |

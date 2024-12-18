@@ -84,8 +84,9 @@ variable "locality_lb_policy" {
 }
 
 variable "security_policy" {
-  type    = string
-  default = null
+  description = "Security policy in string."
+  type        = string
+  default     = null
 }
 
 variable "timeout_sec" {
@@ -307,3 +308,4 @@ variable "url_map_resource_uri" {
   type        = string
   default     = null
 }
+
