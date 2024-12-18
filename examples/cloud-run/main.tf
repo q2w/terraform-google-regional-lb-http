@@ -39,7 +39,7 @@ resource "google_compute_subnetwork" "proxy_only" {
 }
 
 module "lb-http-backend" {
-  source            = "googlestaging/regional-lb-http/google//modules/backend"
+  source            = "../../modules/backend"
   project_id        = var.project_id
   region            = var.region
   name              = "backend-lb"
@@ -51,7 +51,7 @@ module "lb-http-backend" {
 }
 
 module "lb-http-frontend" {
-  source        = "googlestaging/regional-lb-http/google//modules/frontend"
+  source        = "../../modules/frontend"
   project_id    = var.project_id
   name          = "frontend-lb"
   url_map_input = module.lb-http-backend.backend_service_info
