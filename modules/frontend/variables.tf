@@ -173,3 +173,9 @@ variable "http_keep_alive_timeout_sec" {
   type        = number
   default     = null
 }
+
+variable "proxy_subnetwork" {
+  description = "subnetwork for the proxy."
+  type        = string
+  default     = null
+}
