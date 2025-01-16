@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.1.2](https://github.com/GoogleCloudPlatform/terraform-google-regional-lb-http/compare/v0.1.1...v0.1.2) (2025-01-16)
+
+
+### Bug Fixes
+
+* update alternate default to have in right format ([#11](https://github.com/GoogleCloudPlatform/terraform-google-regional-lb-http/issues/11)) ([46efbf7](https://github.com/GoogleCloudPlatform/terraform-google-regional-lb-http/commit/46efbf70a8c3ce6d11988a563b460f170f719711))
+
+## [0.1.1](https://github.com/GoogleCloudPlatform/terraform-google-regional-lb-http/compare/v0.1.0...v0.1.1) (2025-01-15)
+
+
+### Bug Fixes
+
+* update alternate default for health_check ([#9](https://github.com/GoogleCloudPlatform/terraform-google-regional-lb-http/issues/9)) ([44216b7](https://github.com/GoogleCloudPlatform/terraform-google-regional-lb-http/commit/44216b76021ab8e2129e40c5e06ae10e8182a334))
+
 ## 0.1.0 (2025-01-10)
 
 
