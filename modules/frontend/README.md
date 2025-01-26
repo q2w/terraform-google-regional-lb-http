@@ -8,13 +8,16 @@ This module creates `HTTP(S) forwarding rule` and its dependencies. This modules
 | address | Existing IPv4 address to use (the actual IP address value) | `string` | `null` | no |
 | certificate | Content of the SSL certificate. Requires `ssl` to be set to `true` and `create_ssl_certificate` set to `true` | `string` | `null` | no |
 | create\_address | Create a new global IPv4 address | `bool` | `true` | no |
+| create\_ipv6\_address | Allocate a new IPv6 address. Conflicts with "ipv6\_address" - if both specified, "create\_ipv6\_address" takes precedence. | `bool` | `false` | no |
 | create\_ssl\_certificate | If `true`, Create certificate using `private_key/certificate` | `bool` | `false` | no |
 | create\_url\_map | Set to `false` if url\_map\_resource\_uri variable is provided. | `bool` | `true` | no |
+| enable\_ipv6 | Enable IPv6 address on the CDN load-balancer | `bool` | `false` | no |
 | http\_forward | Set to `false` to disable HTTP port 80 forward | `bool` | `true` | no |
 | http\_keep\_alive\_timeout\_sec | Specifies how long to keep a connection open, after completing a response, while there is no matching traffic (in seconds). | `number` | `null` | no |
 | http\_port | The port for the HTTP load balancer | `number` | `80` | no |
 | https\_port | The port for the HTTPS load balancer | `number` | `443` | no |
 | https\_redirect | Set to `true` to enable https redirect on the lb. | `bool` | `false` | no |
+| ipv6\_address | An existing IPv6 address to use (the actual IP address value) | `string` | `null` | no |
 | labels | The labels to attach to resources created by this module | `map(string)` | `{}` | no |
 | load\_balancing\_scheme | Load balancing scheme type (EXTERNAL for classic external load balancer, EXTERNAL\_MANAGED for Envoy-based load balancer, and INTERNAL\_SELF\_MANAGED for traffic director) | `string` | `"EXTERNAL_MANAGED"` | no |
 | managed\_ssl\_certificate\_domains | Create Google-managed SSL certificates for specified domains. Requires `ssl` to be set to `true` | `list(string)` | `[]` | no |

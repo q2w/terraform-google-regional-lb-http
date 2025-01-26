@@ -80,6 +80,24 @@ variable "address" {
   default     = null
 }
 
+variable "enable_ipv6" {
+  type        = bool
+  description = "Enable IPv6 address on the CDN load-balancer"
+  default     = false
+}
+
+variable "create_ipv6_address" {
+  type        = bool
+  description = "Allocate a new IPv6 address. Conflicts with \"ipv6_address\" - if both specified, \"create_ipv6_address\" takes precedence."
+  default     = false
+}
+
+variable "ipv6_address" {
+  type        = string
+  description = "An existing IPv6 address to use (the actual IP address value)"
+  default     = null
+}
+
 variable "labels" {
   description = "The labels to attach to resources created by this module"
   type        = map(string)

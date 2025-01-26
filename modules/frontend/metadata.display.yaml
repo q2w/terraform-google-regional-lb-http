@@ -37,12 +37,18 @@ spec:
         create_address:
           name: create_address
           title: Create Address
+        create_ipv6_address:
+          name: create_ipv6_address
+          title: Create Ipv6 Address
         create_ssl_certificate:
           name: create_ssl_certificate
           title: Create Ssl Certificate
         create_url_map:
           name: create_url_map
           title: Create Url Map
+        enable_ipv6:
+          name: enable_ipv6
+          title: Enable Ipv6
         http_forward:
           name: http_forward
           title: Http Forward
@@ -58,6 +64,9 @@ spec:
         https_redirect:
           name: https_redirect
           title: Https Redirect
+        ipv6_address:
+          name: ipv6_address
+          title: Ipv6 Address
         labels:
           name: labels
           title: Labels

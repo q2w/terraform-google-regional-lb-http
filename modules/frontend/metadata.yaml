@@ -89,6 +89,17 @@ spec:
       - name: address
         description: Existing IPv4 address to use (the actual IP address value)
         varType: string
+      - name: enable_ipv6
+        description: Enable IPv6 address on the CDN load-balancer
+        varType: bool
+        defaultValue: false
+      - name: create_ipv6_address
+        description: Allocate a new IPv6 address. Conflicts with "ipv6_address" - if both specified, "create_ipv6_address" takes precedence.
+        varType: bool
+        defaultValue: false
+      - name: ipv6_address
+        description: An existing IPv6 address to use (the actual IP address value)
+        varType: string
       - name: labels
         description: The labels to attach to resources created by this module
         varType: map(string)
