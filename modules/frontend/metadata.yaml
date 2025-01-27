@@ -34,6 +34,8 @@ spec:
     examples:
       - name: cloud-run
         location: examples/cloud-run
+      - name: instance-group
+        location: examples/instance-group
   interfaces:
     variables:
       - name: project_id

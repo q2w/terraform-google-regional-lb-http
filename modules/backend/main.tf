@@ -154,9 +154,30 @@ resource "google_compute_firewall" "default_hc" {
 
   allow {
     protocol = "tcp"
-    ports    = [var.health_check.port]
+    ports    = var.health_check.port != null ? [var.health_check.port] : null
   }
+}
 
+resource "google_compute_firewall" "allow_proxy" {
+  count         = var.health_check != null ? length(var.firewall_networks) : 0
+  project       = length(var.firewall_networks) == 1 && var.firewall_projects[0] == "default" ? var.project_id : var.firewall_projects[count.index]
+  name          = "${var.name}-fw-allow-proxies-${count.index}"
+  network       = var.firewall_networks[count.index]
+  source_ranges = ["10.129.0.0/23"]
+  target_tags   = length(var.target_tags) > 0 ? var.target_tags : null
+
+  allow {
+    ports    = ["443"]
+    protocol = "tcp"
+  }
+  allow {
+    ports    = ["80"]
+    protocol = "tcp"
+  }
+  allow {
+    ports    = ["8080"]
+    protocol = "tcp"
+  }
 }
 
 resource "google_compute_region_network_endpoint_group" "serverless_negs" {
