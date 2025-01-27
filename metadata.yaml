@@ -38,8 +38,8 @@ spec:
     examples:
       - name: cloud-run
         location: examples/cloud-run
-      - name: instance-group
-        location: examples/instance-group
+      - name: gce-mig
+        location: examples/gce-mig
   interfaces:
     variables:
       - name: name

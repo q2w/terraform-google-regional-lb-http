@@ -39,6 +39,7 @@ This module creates `HTTP(S) forwarding rule` and its dependencies. This modules
 
 | Name | Description |
 |------|-------------|
+| apphub\_service\_uri | A list of all App Hub service URIs, including HTTP, HTTPS, and IPv6 versions. |
 | external\_ip | The external IPv4 assigned to the fowarding rule. |
 | http\_proxy | The HTTP proxy used by this module. |
 | https\_proxy | The HTTPS proxy used by this module. |
