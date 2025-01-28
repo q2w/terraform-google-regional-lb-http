@@ -39,3 +39,37 @@ output "ssl_certificate_created" {
   description = "The SSL certificate create from key/pem"
   value       = google_compute_ssl_certificate.default[*].self_link
 }
+
+output "apphub_service_uri" {
+  value = concat(
+    [
+      {
+        service_uri = "//compute.googleapis.com/${google_compute_forwarding_rule.default.id}"
+        service_id  = substr("${google_compute_forwarding_rule.default.name}-${md5("${var.region}-${var.project_id}")}", 0, 63)
+        location    = var.region
+      }
+    ],
+    var.ssl ? [
+      {
+        service_uri = "//compute.googleapis.com/${google_compute_forwarding_rule.https[0].id}"
+        service_id  = substr("${google_compute_forwarding_rule.https[0].name}-${md5("${var.region}-${var.project_id}")}", 0, 63)
+        location    = var.region
+      }
+    ] : [],
+    (var.enable_ipv6 && local.create_http_forward) ? [
+      {
+        service_uri = "//compute.googleapis.com/${google_compute_forwarding_rule.http_ipv6[0].id}"
+        service_id  = substr("${google_compute_forwarding_rule.http_ipv6[0].name}-${md5("${var.region}-${var.project_id}")}", 0, 63)
+        location    = var.region
+      }
+    ] : [],
+    var.enable_ipv6 && var.ssl ? [
+      {
+        service_uri = "//compute.googleapis.com/${google_compute_forwarding_rule.https_ipv6[0].id}"
+        service_id  = substr("${google_compute_forwarding_rule.https_ipv6[0].name}-${md5("${var.region}-${var.project_id}")}", 0, 63)
+        location    = var.region
+      }
+    ] : []
+  )
+  description = "A list of all App Hub service URIs, including HTTP, HTTPS, and IPv6 versions."
+}

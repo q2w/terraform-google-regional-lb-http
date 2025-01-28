@@ -21,6 +21,7 @@ locals {
 
   url_map             = var.create_url_map ? join("", google_compute_region_url_map.default[*].self_link) : var.url_map_resource_uri
   create_http_forward = var.http_forward || var.https_redirect
+  ipv6_address        = var.create_ipv6_address ? join("", google_compute_address.default_ipv6[*].address) : var.ipv6_address
 
   # Create a map with hosts as keys and empty lists as initial values
   hosts = toset([for service in var.url_map_input : service.host])
@@ -38,6 +39,7 @@ locals {
   first_backend_service = try(local.backend_services_by_host[local.first_host][local.first_path], null)
 }
 
+### Proxy only subnetwork ###
 resource "google_compute_subnetwork" "proxy_only" {
   name          = "${var.name}-proxy-only-subnetwork"
   ip_cidr_range = var.proxy_only_subnet_ip
@@ -49,6 +51,7 @@ resource "google_compute_subnetwork" "proxy_only" {
 }
 
 ### IPv4 ###
+
 resource "google_compute_forwarding_rule" "default" {
   provider              = google-beta
   project               = var.project_id
@@ -66,6 +69,7 @@ resource "google_compute_forwarding_rule" "default" {
 resource "google_compute_forwarding_rule" "https" {
   name                  = "${var.name}-forwarding-rule-https"
   project               = var.project_id
+  region                = var.region
   count                 = var.ssl ? 1 : 0
   target                = google_compute_region_target_https_proxy.default[0].self_link
   port_range            = var.https_port
@@ -74,15 +78,6 @@ resource "google_compute_forwarding_rule" "https" {
   labels                = var.labels
   network               = var.network
   depends_on            = [google_compute_subnetwork.proxy_only]
-}
-
-resource "google_compute_global_address" "default" {
-  provider   = google-beta
-  count      = local.is_internal ? 0 : var.create_address ? 1 : 0
-  project    = var.project_id
-  name       = "${var.name}-address"
-  ip_version = "IPV4"
-  labels     = var.labels
 }
 
 resource "google_compute_address" "default" {
@@ -96,6 +91,51 @@ resource "google_compute_address" "default" {
 }
 
 ### IPv4 ###
+
+### IPv6 block ###
+resource "google_compute_forwarding_rule" "http_ipv6" {
+  provider = google-beta
+  count    = (var.enable_ipv6 && local.create_http_forward) ? 1 : 0
+
+  project               = var.project_id
+  region                = var.region
+  name                  = "${var.name}-forwarding-rule-ipv6-http"
+  target                = google_compute_region_target_http_proxy.default[0].self_link
+  ip_address            = local.ipv6_address
+  port_range            = "80"
+  labels                = var.labels
+  load_balancing_scheme = var.load_balancing_scheme
+  network               = var.network
+  depends_on            = [google_compute_subnetwork.proxy_only]
+}
+
+resource "google_compute_forwarding_rule" "https_ipv6" {
+  count = var.enable_ipv6 && var.ssl ? 1 : 0
+
+  project               = var.project_id
+  region                = var.region
+  name                  = "${var.name}-forwarding-rule-ipv6-https"
+  target                = google_compute_region_target_https_proxy.default[0].self_link
+  ip_address            = local.ipv6_address
+  port_range            = "443"
+  labels                = var.labels
+  load_balancing_scheme = var.load_balancing_scheme
+  network               = var.network
+  depends_on            = [google_compute_subnetwork.proxy_only]
+}
+
+resource "google_compute_address" "default_ipv6" {
+  provider = google-beta
+  count    = local.is_internal ? 0 : (var.enable_ipv6 && var.create_ipv6_address) ? 1 : 0
+
+  project    = var.project_id
+  region     = var.region
+  name       = "${var.name}-ipv6-address"
+  ip_version = "IPV6"
+  labels     = var.labels
+}
+
+### IPv6 block ###
 
 resource "google_compute_region_url_map" "default" {
   count           = var.create_url_map && length(local.backend_services_by_host) > 0 ? 1 : 0
