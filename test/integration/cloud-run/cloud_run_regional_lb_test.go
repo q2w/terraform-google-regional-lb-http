@@ -22,6 +22,7 @@ import (
 	"time"
 
 	"github.com/GoogleCloudPlatform/cloud-foundation-toolkit/infra/blueprint-test/pkg/tft"
+	"github.com/GoogleCloudPlatform/cloud-foundation-toolkit/infra/blueprint-test/pkg/utils"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -64,7 +65,10 @@ func TestCloudRunRegionalLb(t *testing.T) {
 		bpt.DefaultVerify(assert)
 
 		externalIp := bpt.GetStringOutput("external_ip")
-		AssertResponseStatus(t, assert, "http://"+externalIp, 200)
+
+		httpRequest, _ := http.NewRequest("GET", "http://"+externalIp, nil)
+		assertHttp := utils.NewAssertHTTP()
+		assertHttp.AssertResponse(t, httpRequest, http.StatusOK)
 	})
 
 	bpt.Test()
