@@ -42,14 +42,14 @@ module "lb-http-backend" {
 }
 
 module "lb-http-frontend" {
-  source        = "GoogleCloudPlatform/regional-lb-http/google//modules/frontend"
-  version       = "~> 0.0.1"
-  project_id    = var.project_id
-  region        = var.region
-  name          = "frontend-lb"
-  url_map_input = module.lb-http-backend.backend_service_info
-  network       = google_compute_network.default.name
-
+  source                   = "GoogleCloudPlatform/regional-lb-http/google//modules/frontend"
+  version                  = "~> 0.0.1"
+  project_id               = var.project_id
+  region                   = var.region
+  name                     = "frontend-lb"
+  url_map_input            = module.lb-http-backend.backend_service_info
+  network                  = google_compute_network.default.name
+  create_proxy_only_subnet = true
 }
 
 resource "google_cloud_run_service" "default" {

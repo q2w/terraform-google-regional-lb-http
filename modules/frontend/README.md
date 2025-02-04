@@ -9,6 +9,7 @@ This module creates `HTTP(S) forwarding rule` and its dependencies. This modules
 | certificate | Content of the SSL certificate. Requires `ssl` to be set to `true` and `create_ssl_certificate` set to `true` | `string` | `null` | no |
 | create\_address | Create a new global IPv4 address | `bool` | `true` | no |
 | create\_ipv6\_address | Allocate a new IPv6 address. Conflicts with "ipv6\_address" - if both specified, "create\_ipv6\_address" takes precedence. | `bool` | `false` | no |
+| create\_proxy\_only\_subnet | Create a REGIONAL\_MANAGED\_PROXY subnetwork in the provide VPC network. | `bool` | `false` | no |
 | create\_ssl\_certificate | If `true`, Create certificate using `private_key/certificate` | `bool` | `false` | no |
 | create\_url\_map | Set to `false` if url\_map\_resource\_uri variable is provided. | `bool` | `true` | no |
 | enable\_ipv6 | Enable IPv6 address on the CDN load-balancer | `bool` | `false` | no |
@@ -22,10 +23,10 @@ This module creates `HTTP(S) forwarding rule` and its dependencies. This modules
 | load\_balancing\_scheme | Load balancing scheme type (EXTERNAL for classic external load balancer, EXTERNAL\_MANAGED for Envoy-based load balancer, and INTERNAL\_SELF\_MANAGED for traffic director) | `string` | `"EXTERNAL_MANAGED"` | no |
 | managed\_ssl\_certificate\_domains | Create Google-managed SSL certificates for specified domains. Requires `ssl` to be set to `true` | `list(string)` | `[]` | no |
 | name | Name for the forwarding rule and prefix for supporting resources | `string` | n/a | yes |
-| network | VPC network for the forwarding rule. It should not be default | `string` | n/a | yes |
+| network | VPC network for the forwarding rule. It should not be default. The VPC network should also have only one REGIONAL\_MANAGED\_PROXY subnetwork in the same region as of this regional load balancer. Please go to the subnets tab of your VPC network and check if a REGIONAL\_MANAGED\_PROXY subnet exists under `Reserved proxy-only subnets for load balancing` section. If the REGIONAL\_MANAGED\_PROXY doesn't exists, set create\_proxy\_only\_subnet parameter to provision it as part of this component deployment. | `string` | n/a | yes |
 | private\_key | Content of the private SSL key. Requires `ssl` to be set to `true` and `create_ssl_certificate` set to `true` | `string` | `null` | no |
 | project\_id | The project to deploy load balancer frontend resources.. | `string` | n/a | yes |
-| proxy\_only\_subnet\_ip | ip\_cidr\_range for creating proxy\_only subnetwork in the provided VPC network. | `string` | `"10.129.0.0/23"` | no |
+| proxy\_only\_subnet\_ip | ip\_cidr\_range for creating REGIONAL\_MANAGED\_PROXY subnetwork in the provided VPC network. | `string` | `"10.129.0.0/23"` | no |
 | random\_certificate\_suffix | Bool to enable/disable random certificate name generation. Set and keep this to true if you need to change the SSL cert. | `bool` | `false` | no |
 | region | The region where the load balancer will be created | `string` | n/a | yes |
 | server\_tls\_policy | The resource URL for the server TLS policy to associate with the https proxy service | `string` | `null` | no |
