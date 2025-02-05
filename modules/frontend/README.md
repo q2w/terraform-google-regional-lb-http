@@ -9,7 +9,7 @@ This module creates `HTTP(S) forwarding rule` and its dependencies. This modules
 | certificate | Content of the SSL certificate. Requires `ssl` to be set to `true` and `create_ssl_certificate` set to `true` | `string` | `null` | no |
 | create\_address | Create a new global IPv4 address | `bool` | `true` | no |
 | create\_ipv6\_address | Allocate a new IPv6 address. Conflicts with "ipv6\_address" - if both specified, "create\_ipv6\_address" takes precedence. | `bool` | `false` | no |
-| create\_proxy\_only\_subnet | Create a REGIONAL\_MANAGED\_PROXY subnetwork in the provide VPC network. | `bool` | `false` | no |
+| create\_proxy\_only\_subnet | Create a REGIONAL\_MANAGED\_PROXY subnetwork in the provided VPC network. | `bool` | `false` | no |
 | create\_ssl\_certificate | If `true`, Create certificate using `private_key/certificate` | `bool` | `false` | no |
 | create\_url\_map | Set to `false` if url\_map\_resource\_uri variable is provided. | `bool` | `true` | no |
 | enable\_ipv6 | Enable IPv6 address on the CDN load-balancer | `bool` | `false` | no |
