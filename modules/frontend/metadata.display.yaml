@@ -40,6 +40,10 @@ spec:
         create_ipv6_address:
           name: create_ipv6_address
           title: Create Ipv6 Address
+        create_proxy_only_subnet:
+          name: create_proxy_only_subnet
+          title: Create Proxy Only Subnet
+          level: 1
         create_ssl_certificate:
           name: create_ssl_certificate
           title: Create Ssl Certificate

@@ -41,6 +41,7 @@ locals {
 
 ### Proxy only subnetwork ###
 resource "google_compute_subnetwork" "proxy_only" {
+  count         = var.create_proxy_only_subnet ? 1 : 0
   name          = "${var.name}-proxy-only-subnetwork"
   ip_cidr_range = var.proxy_only_subnet_ip
   network       = var.network

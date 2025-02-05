@@ -30,12 +30,18 @@ variable "name" {
 }
 
 variable "network" {
-  description = "VPC network for the forwarding rule. It should not be default"
+  description = "VPC network for the forwarding rule. It should not be default. The VPC network should have only one REGIONAL_MANAGED_PROXY subnetwork in the same region as of this regional load balancer. Please go to the subnets tab of your VPC network and check if a REGIONAL_MANAGED_PROXY subnet exists under `Reserved proxy-only subnets for load balancing` section. If the REGIONAL_MANAGED_PROXY doesn't exists, set create_proxy_only_subnet parameter to provision it as part of this component deployment."
   type        = string
 }
 
+variable "create_proxy_only_subnet" {
+  description = "Create a REGIONAL_MANAGED_PROXY subnetwork in the provide VPC network."
+  type        = bool
+  default     = false
+}
+
 variable "proxy_only_subnet_ip" {
-  description = "ip_cidr_range for creating proxy_only subnetwork in the provided VPC network."
+  description = "ip_cidr_range for creating REGIONAL_MANAGED_PROXY subnetwork in the provided VPC network."
   type        = string
   default     = "10.129.0.0/23"
 }
