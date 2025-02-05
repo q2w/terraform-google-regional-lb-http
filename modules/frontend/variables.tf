@@ -35,7 +35,7 @@ variable "network" {
 }
 
 variable "create_proxy_only_subnet" {
-  description = "Create a REGIONAL_MANAGED_PROXY subnetwork in the provide VPC network."
+  description = "Create a REGIONAL_MANAGED_PROXY subnetwork in the provided VPC network."
   type        = bool
   default     = false
 }
