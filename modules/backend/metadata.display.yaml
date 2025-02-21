@@ -46,6 +46,9 @@ spec:
         firewall_projects:
           name: firewall_projects
           title: Firewall Projects
+        firewall_source_ranges:
+          name: firewall_source_ranges
+          title: Firewall Source Ranges
         groups:
           name: groups
           title: Groups
