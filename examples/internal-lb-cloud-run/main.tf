@@ -45,7 +45,6 @@ module "backend-service" {
   location                      = var.region
   service_name                  = "bs-2002"
   containers                    = [{ "container_name" = "", "container_image" = "gcr.io/cloudrun/hello" }]
-  service_account_project_roles = ["roles/run.invoker"]
   members                       = ["allUsers"]
   ingress                       = "INGRESS_TRAFFIC_INTERNAL_ONLY"
   cloud_run_deletion_protection = false
@@ -80,16 +79,6 @@ module "lb-http-frontend" {
   depends_on = [google_compute_subnetwork.proxy_only]
 }
 
-module "enable-vpc-access" {
-  source  = "terraform-google-modules/project-factory/google//modules/project_services"
-  version = "~> 18.0"
-
-  project_id = var.project_id
-  activate_apis = [
-    "vpcaccess.googleapis.com"
-  ]
-}
-
 resource "google_vpc_access_connector" "default" {
   provider       = google-beta
   project        = var.project_id
@@ -99,8 +88,6 @@ resource "google_vpc_access_connector" "default" {
   region         = var.region
   max_throughput = 500
   min_throughput = 300
-
-  depends_on = [module.enable-vpc-access]
 }
 
 module "frontend-service" {
@@ -110,7 +97,6 @@ module "frontend-service" {
   location                      = var.region
   service_name                  = "fs-2002"
   containers                    = [{ "env_vars" : { "TARGET_IP" : module.lb-http-frontend.ip_address_http }, "ports" = { "container_port" = 80, "name" = "http1" }, "container_name" = "", "container_image" = "gcr.io/design-center-container-repo/redirect-traffic:latest-2002" }]
-  service_account_project_roles = ["roles/run.invoker"]
   members                       = ["allUsers"]
   vpc_access = {
     connector = google_vpc_access_connector.default.id

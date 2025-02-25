@@ -36,5 +36,6 @@ module "project-ci-regional-lb-http" {
     "run.googleapis.com",
     "iam.googleapis.com",
     "certificatemanager.googleapis.com",
+    "vpcaccess.googleapis.com",
   ]
 }

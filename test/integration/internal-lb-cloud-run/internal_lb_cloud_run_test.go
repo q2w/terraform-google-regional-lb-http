@@ -32,7 +32,10 @@ func TestInternalLbCloudRun(t *testing.T) {
 
 		externalIp := bpt.GetStringOutput("external_ip")
 
-		httpRequest, _ := http.NewRequest("GET", "http://"+externalIp, nil)
+		httpRequest, err := http.NewRequest("GET", "http://"+externalIp, nil)
+		if err != nil {
+			t.Fatalf("Failed to create HTTP request: %v", err)
+		}
 		assertHttp := utils.NewAssertHTTP()
 		assertHttp.AssertResponse(t, httpRequest, http.StatusOK)
 	})
