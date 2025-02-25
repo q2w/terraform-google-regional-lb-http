@@ -40,6 +40,8 @@ spec:
         location: examples/cloud-run
       - name: gce-mig
         location: examples/gce-mig
+      - name: internal-lb-cloud-run
+        location: examples/internal-lb-cloud-run
   interfaces:
     variables:
       - name: name
@@ -267,6 +269,7 @@ spec:
       - run.googleapis.com
       - iam.googleapis.com
       - certificatemanager.googleapis.com
+      - vpcaccess.googleapis.com
     providerVersions:
       - source: hashicorp/google
         version: ">= 6.0, < 7"
